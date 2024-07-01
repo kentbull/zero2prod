@@ -2,7 +2,7 @@
 name = "zero2prod"
 version = "0.1.1"
 edition = "2021"
-authors = ["Kent Bull <kent@kentbull.com"]
+authors = ["Kent Bull <kent@kentbull.com>"]
 
 [lib]
 path = "src/lib.rs"
@@ -14,12 +14,13 @@ name = "zero2prod"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-actix-web = "4.5.1"
+actix-web = "4.8.0"
 actix-cors = "0.7.0"
 env_logger = "0.11.3"
-tokio = { version = "1.37.0", features = ["macros", "rt-multi-thread"] }
-serde = { version = "1.0.199", features = ["derive"] }
-serde_json = "1.0.116"
+tokio = { version = "1.38.0", features = ["macros", "rt-multi-thread"] }
+serde = { version = "1.0.203", features = ["derive"] }
+serde_json = "1.0.119"
+libc = "0.2.155" # To fix a security issue - remove when actix-web is upgraded and uses the new one. 0.2.154 was yanked.
 
 [dev-dependencies]
-reqwest = "0.11"
+reqwest = "0.12.5"

@@ -1,5 +1,5 @@
 use actix_web::dev::Server;
-use actix_web::{middleware::Logger, web, web::Bytes, App, HttpResponse, HttpServer, Responder};
+use actix_web::{middleware::Logger, web, web::Bytes, App, HttpResponse, HttpServer, Responder, HttpRequest};
 use serde::Deserialize;
 use std::fmt;
 
@@ -54,6 +54,11 @@ async fn index(bytes: Bytes) -> std::io::Result<HttpResponse> {
     // Ok(body)
 }
 
+async fn greet(req: HttpRequest) -> impl Responder {
+    let name = req.match_info().get("name").unwrap_or("World");
+    format!("Hello {}!", &name)
+}
+
 async fn health_check() -> impl Responder {
     HttpResponse::Ok()
 }
@@ -65,6 +70,7 @@ pub fn run() -> Result<Server, std::io::Error> {
             .wrap(Logger::default())
             .route("/health", web::get().to(health_check))
             .route("/", web::post().to(index))
+            .route("/{name}", web::get().to(greet))
     })
     .bind(("127.0.0.1", 8000))?
     .run();
