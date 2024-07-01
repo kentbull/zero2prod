@@ -1,5 +1,7 @@
 use actix_web::dev::Server;
-use actix_web::{middleware::Logger, web, web::Bytes, App, HttpResponse, HttpServer, Responder, HttpRequest};
+use actix_web::{
+    middleware::Logger, web, web::Bytes, App, HttpRequest, HttpResponse, HttpServer, Responder,
+};
 use serde::Deserialize;
 use std::fmt;
 
